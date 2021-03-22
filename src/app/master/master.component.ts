@@ -94,7 +94,7 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
             if (result.status)
             {
             // display modal
-            this.showSuccess('Great job!', 'Data is updated');
+            this.showSuccess('Confirmation', 'Data is updated');
             }
           }
           if (result.crudType=="d")
@@ -104,7 +104,7 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
               
             this.refreshPage();
             // display toaster
-            this.showSuccess('Great job!', 'Data is deleted');
+            this.showSuccess('Confirmation', 'Data is deleted');
             }
           }
           if (result.crudType=="c")
@@ -113,12 +113,12 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
             {
             this.refreshPage();
             // display toaster
-            this.showSuccess('Great job!', 'Data is created');
+            this.showSuccess('Confirmation', 'Data is saved');
             }
           }
           if (result.crudType=="")
           {
-            this.showSuccess('Great job!', 'Form is cancel');
+            this.showSuccess('Confirmation', 'Form is cancel');
           }
         }
       })
