@@ -1,6 +1,6 @@
 # Scrum and Coke Publication
 
-This repository is for Medium story [Angular 11 CRUD 100,000+ Rows](https://medium.com/scrum-and-coke/angular-11-crud-100-000-rows-d1db21afc31c)
+This repository is for Medium story [Angular 11 CRUD, Reactive Form, Modal, Toaster, Pagination ](https://medium.com/scrum-and-coke/angular-11-crud-100-000-rows-d1db21afc31c)
 
 # angularcrud
 
