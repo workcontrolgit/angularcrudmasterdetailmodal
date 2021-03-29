@@ -11,8 +11,6 @@ import { ApiEndpointsService } from '@app/services/api-endpoints.service';
 import { ToastService } from '@app/services/toast.service';
 import { ConfirmationDialogService } from '@app/services/confirmation-dialog.service';
 
-
-
 const log = new Logger('ModalFormComponent');
 
 @Component({
@@ -48,8 +46,7 @@ export class ModalFormComponent implements OnInit {
     log.debug('ngOnInit position:', this.position);
     log.debug('ngOnInit formMode:', this.formMode);
     log.debug('ngOnInit isAddNew:', this.isAddNew);
-    if (this.position != undefined)
-    {
+    if (this.position != undefined) {
       this.entryForm.setValue({
         id: this.position.id,
         positionNumber: this.position.positionNumber,
@@ -102,7 +99,7 @@ export class ModalFormComponent implements OnInit {
     this.apiHttpService.post(this.apiEndpointsService.postPositionsEndpoint(), data).subscribe(
       (resp: any) => {
         this.id = resp.data; //guid return in data
-        this.result = { position: this.position, crudType: 'c', status: true };        
+        this.result = { position: this.position, crudType: 'c', status: true };
         this.activeModal.close(this.result);
       },
       (error) => {
@@ -141,9 +138,9 @@ export class ModalFormComponent implements OnInit {
 
   // Handle Delete button click
   onCancel() {
-    this.result = { position: this.position, crudType: '', status: true };        
+    this.result = { position: this.position, crudType: '', status: true };
     this.activeModal.close(this.result);
-}
+  }
 
   // reactive form
   private createForm() {

@@ -6,13 +6,9 @@
       </div>
       <div class="float-right">
         <!-- Add button with routerLink to the about page -->
-        <button
-            (click)="openModal(position, 'New', true)"
-            class="btn btn-primary w-20"
-            type="submit"
-          >
-            <span translate><i class="fa fa-plus"></i> Add</span>
-          </button>        
+        <button (click)="openModal(position, 'New', true)" class="btn btn-primary w-20" type="submit">
+          <span translate><i class="fa fa-plus"></i> Add</span>
+        </button>
       </div>
     </div>
     <div class="card-body">
@@ -43,6 +39,8 @@
         </table>
       </div>
     </div>
-    <div class="card-footer">Instructions:  Double-click on a row to make edit.  Searchable columns are Number, Title, and Description.</div>
+    <div class="card-footer">
+      Instructions: Double-click on a row to make edit. Searchable columns are Number, Title, and Description.
+    </div>
   </div>
 </div>
