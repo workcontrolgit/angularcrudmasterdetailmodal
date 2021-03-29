@@ -23,8 +23,6 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
-  //dtInstance: DataTables.Api;
-
   public position: Position;
 
   positions: Position[];
@@ -88,36 +86,28 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
       .then((result: FormResult) => {
         if (result) {
           log.debug('openModal', result);
-          
-          if (result.crudType=="u")
-          {
-            if (result.status)
-            {
-            // display modal
-            this.showSuccess('Confirmation', 'Data is updated');
+
+          if (result.crudType == 'u') {
+            if (result.status) {
+              // display modal
+              this.showSuccess('Confirmation', 'Data is updated');
             }
           }
-          if (result.crudType=="d")
-          {
-            if (result.status)
-            {
-              
-            this.refreshPage();
-            // display toaster
-            this.showSuccess('Confirmation', 'Data is deleted');
+          if (result.crudType == 'd') {
+            if (result.status) {
+              this.refreshPage();
+              // display toaster
+              this.showSuccess('Confirmation', 'Data is deleted');
             }
           }
-          if (result.crudType=="c")
-          {
-            if (result.status)
-            {
-            this.refreshPage();
-            // display toaster
-            this.showSuccess('Confirmation', 'Data is saved');
+          if (result.crudType == 'c') {
+            if (result.status) {
+              this.refreshPage();
+              // display toaster
+              this.showSuccess('Confirmation', 'Data is saved');
             }
           }
-          if (result.crudType=="")
-          {
+          if (result.crudType == '') {
             this.showSuccess('Confirmation', 'Form is cancel');
           }
         }
@@ -156,5 +146,4 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
       headertext: headerText,
     });
   }
-
 }
