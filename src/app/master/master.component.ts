@@ -18,7 +18,7 @@ const log = new Logger('Master');
   templateUrl: './master.component.html',
   styleUrls: ['./master.component.scss'],
 })
-export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MasterComponent implements OnInit {
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -47,12 +47,14 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
           .post(this.apiEndpointsService.postPositionsPagedEndpoint(), dataTablesParameters)
           .subscribe((resp: DataTablesResponse) => {
             this.positions = resp.data;
-            //this.chRef.detectChanges();
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
               data: [],
             });
+          },
+          (error) => {
+            log.debug(error);
           });
       },
       // Set column title and data field
@@ -116,22 +118,22 @@ export class MasterComponent implements AfterViewInit, OnInit, OnDestroy {
         log.debug('Form: ', 'Cancel');
       });
   }
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
+  // rerender(): void {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     // Destroy the table first
+  //     dtInstance.destroy();
+  //     // Call the dtTrigger to rerender again
+  //     this.dtTrigger.next();
+  //   });
+  // }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+  // ngAfterViewInit(): void {
+  //   this.dtTrigger.next();
+  // }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.dtTrigger.unsubscribe();
+  // }
 
   refreshPage() {
     window.location.reload();

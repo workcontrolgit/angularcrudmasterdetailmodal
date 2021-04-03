@@ -25,12 +25,8 @@ export class ModalFormComponent implements OnInit {
 
   entryForm: FormGroup;
   error: string | undefined;
-  //formMode: string = 'New';
   id: any;
-  //isAddNew: boolean = false;
   result: FormResult;
-
-  //@Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -59,7 +55,8 @@ export class ModalFormComponent implements OnInit {
 
   // CRUD > Update, map to REST/HTTP PUT
   put(id: string, formdata: any): void {
-    this.apiHttpService.put(this.apiEndpointsService.putPositionsPagedEndpoint(id), formdata).subscribe(
+    this.apiHttpService.put(this.apiEndpointsService.putPositionsPagedEndpoint(id), formdata)
+    .subscribe(
       (resp: any) => {
         this.id = resp.data; //guid return in data
         if (this.entryForm.dirty) {
@@ -69,8 +66,6 @@ export class ModalFormComponent implements OnInit {
           this.position.positionDescription = this.entryForm.get('positionDescription').value;
           this.position.positionSalary = this.entryForm.get('positionSalary').value;
           this.result = { position: this.position, crudType: 'u', status: true };
-          // display modal
-          //this.showSuccess('Great job!', 'Data is updated');
           // close the modal
           this.activeModal.close(this.result);
         }
@@ -82,7 +77,8 @@ export class ModalFormComponent implements OnInit {
   }
   // CRUD > Delete, map to REST/HTTP DELETE
   delete(id: any): void {
-    this.apiHttpService.delete(this.apiEndpointsService.deletePositionByIdEndpoint(id), id).subscribe(
+    this.apiHttpService.delete(this.apiEndpointsService.deletePositionByIdEndpoint(id), id)
+    .subscribe(
       (resp: any) => {
         log.debug(resp);
         //this.showSuccess('Great job!', 'Data is deleted');
@@ -96,7 +92,8 @@ export class ModalFormComponent implements OnInit {
   }
   // CRUD > Create, map to REST/HTTP POST
   create(data: any): void {
-    this.apiHttpService.post(this.apiEndpointsService.postPositionsEndpoint(), data).subscribe(
+    this.apiHttpService.post(this.apiEndpointsService.postPositionsEndpoint(), data)
+    .subscribe(
       (resp: any) => {
         this.id = resp.data; //guid return in data
         this.result = { position: this.position, crudType: 'c', status: true };
