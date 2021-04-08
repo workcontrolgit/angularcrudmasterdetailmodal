@@ -21,6 +21,6 @@ import { ModalFormComponent } from './modal-form/modal-form.component';
     ReactiveFormsModule,
   ],
   declarations: [MasterComponent, ModalFormComponent],
-  entryComponents: [ModalFormComponent],
+  
 })
 export class MasterModule {}
