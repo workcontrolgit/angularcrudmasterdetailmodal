@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Position } from '@shared/models/position';
 import { ApiHttpService } from '@app/services/api-http.service';
@@ -7,8 +7,6 @@ import { DataTablesResponse } from '@shared/classes/data-tables-response';
 import { Logger } from '@core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalFormComponent } from './modal-form/modal-form.component';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
 import { ToastService } from '@app/services/toast.service';
 import { FormResult } from '@shared/models/form-result';
 
@@ -19,12 +17,9 @@ const log = new Logger('Master');
   styleUrls: ['./master.component.scss'],
 })
 export class MasterComponent implements OnInit {
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-
-  public position: Position;
-
+  
+  position: Position;
   positions: Position[];
 
   constructor(
@@ -78,69 +73,60 @@ export class MasterComponent implements OnInit {
       ],
     };
   }
-
+  // Hanble double click on a row
   openModal(position: Position, formMode: string, isAddNew: boolean) {
+    // Open modal form component
     const modalRef = this.modalService.open(ModalFormComponent);
+    // pass into form component variable position
     modalRef.componentInstance.position = position;
+    // pass into form component variable formMode
     modalRef.componentInstance.formMode = formMode;
+    // pass into form component variable isAddNew
     modalRef.componentInstance.isAddNew = isAddNew;
+    // handle result passing back from modal form component
     modalRef.result
       .then((result: FormResult) => {
         if (result) {
           log.debug('openModal', result);
-
           if (result.crudType == 'u') {
             if (result.status) {
-              // display modal
-              this.showSuccess('Confirmation', 'Data is updated');
+              // toaster for CRUD\Update
+              this.displayToaster('Confirmation', 'Data is updated');
             }
           }
           if (result.crudType == 'd') {
             if (result.status) {
               this.refreshPage();
-              // display toaster
-              this.showSuccess('Confirmation', 'Data is deleted');
+              // toaster for CRUD\Delete
+              this.displayToaster('Confirmation', 'Data is deleted');
             }
           }
           if (result.crudType == 'c') {
             if (result.status) {
               this.refreshPage();
-              // display toaster
-              this.showSuccess('Confirmation', 'Data is saved');
+              // toaster for CRUD\Create
+              this.displayToaster('Confirmation', 'Data is saved');
             }
           }
           if (result.crudType == '') {
-            this.showSuccess('Confirmation', 'Form is cancel');
+              // toaster for cancel
+              this.displayToaster('Confirmation', 'Form is cancel');
           }
         }
       })
       .catch(() => {
+        // user click outside of the modal form
         log.debug('Form: ', 'Cancel');
       });
   }
-  // rerender(): void {
-  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //     // Destroy the table first
-  //     dtInstance.destroy();
-  //     // Call the dtTrigger to rerender again
-  //     this.dtTrigger.next();
-  //   });
-  // }
 
-  // ngAfterViewInit(): void {
-  //   this.dtTrigger.next();
-  // }
-
-  // ngOnDestroy(): void {
-  //   this.dtTrigger.unsubscribe();
-  // }
-
+  //refresh page after delete or create
   refreshPage() {
     window.location.reload();
   }
 
-  // ngbmodal service
-  showSuccess(headerText: string, bodyText: string) {
+  // toaster service
+  displayToaster(headerText: string, bodyText: string) {
     this.toastService.show(bodyText, {
       classname: 'bg-success text-light',
       delay: 2000,

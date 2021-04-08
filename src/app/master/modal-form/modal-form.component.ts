@@ -81,7 +81,7 @@ export class ModalFormComponent implements OnInit {
     .subscribe(
       (resp: any) => {
         log.debug(resp);
-        //this.showSuccess('Great job!', 'Data is deleted');
+        
         this.result = { position: this.position, crudType: 'd', status: true };
         this.activeModal.close(this.result);
       },
@@ -150,13 +150,4 @@ export class ModalFormComponent implements OnInit {
     });
   }
 
-  // ngbmodal service
-  showSuccess(headerText: string, bodyText: string) {
-    this.toastService.show(bodyText, {
-      classname: 'bg-success text-light',
-      delay: 2000,
-      autohide: true,
-      headertext: headerText,
-    });
-  }
 }
