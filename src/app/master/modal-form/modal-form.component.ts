@@ -55,8 +55,7 @@ export class ModalFormComponent implements OnInit {
 
   // CRUD > Update, map to REST/HTTP PUT
   put(id: string, formdata: any): void {
-    this.apiHttpService.put(this.apiEndpointsService.putPositionsPagedEndpoint(id), formdata)
-    .subscribe(
+    this.apiHttpService.put(this.apiEndpointsService.putPositionsPagedEndpoint(id), formdata).subscribe(
       (resp: any) => {
         this.id = resp.data; //guid return in data
         if (this.entryForm.dirty) {
@@ -77,11 +76,10 @@ export class ModalFormComponent implements OnInit {
   }
   // CRUD > Delete, map to REST/HTTP DELETE
   delete(id: any): void {
-    this.apiHttpService.delete(this.apiEndpointsService.deletePositionByIdEndpoint(id), id)
-    .subscribe(
+    this.apiHttpService.delete(this.apiEndpointsService.deletePositionByIdEndpoint(id), id).subscribe(
       (resp: any) => {
         log.debug(resp);
-        
+
         this.result = { position: this.position, crudType: 'd', status: true };
         this.activeModal.close(this.result);
       },
@@ -92,8 +90,7 @@ export class ModalFormComponent implements OnInit {
   }
   // CRUD > Create, map to REST/HTTP POST
   create(data: any): void {
-    this.apiHttpService.post(this.apiEndpointsService.postPositionsEndpoint(), data)
-    .subscribe(
+    this.apiHttpService.post(this.apiEndpointsService.postPositionsEndpoint(), data).subscribe(
       (resp: any) => {
         this.id = resp.data; //guid return in data
         this.result = { position: this.position, crudType: 'c', status: true };
@@ -149,5 +146,4 @@ export class ModalFormComponent implements OnInit {
       positionSalary: ['', RxwebValidators.numeric({ allowDecimal: true, isFormat: false })],
     });
   }
-
 }

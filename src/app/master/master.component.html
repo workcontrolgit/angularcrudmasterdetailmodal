@@ -24,8 +24,8 @@
             </tr>
           </thead>
           <tbody *ngIf="positions?.length != 0">
-        <!-- Double click to edit -->
-        <tr *ngFor="let position of positions" (dblclick)="openModal(position, 'Edit', false)">
+            <!-- Double click to edit -->
+            <tr *ngFor="let position of positions" (dblclick)="openModal(position, 'Edit', false)">
               <td>{{ position.positionNumber }}</td>
               <td>{{ position.positionTitle }}</td>
               <td>{{ position.positionDescription }}</td>

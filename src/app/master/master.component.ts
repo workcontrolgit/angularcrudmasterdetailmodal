@@ -18,7 +18,7 @@ const log = new Logger('Master');
 })
 export class MasterComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  
+
   position: Position;
   positions: Position[];
 
@@ -38,9 +38,8 @@ export class MasterComponent implements OnInit {
       autoWidth: true,
       ajax: (dataTablesParameters: any, callback) => {
         // Call WebAPI to get positions
-        this.apiHttpService
-          .post(this.apiEndpointsService.postPositionsPagedEndpoint(), dataTablesParameters)
-          .subscribe((resp: DataTablesResponse) => {
+        this.apiHttpService.post(this.apiEndpointsService.postPositionsPagedEndpoint(), dataTablesParameters).subscribe(
+          (resp: DataTablesResponse) => {
             this.positions = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -50,7 +49,8 @@ export class MasterComponent implements OnInit {
           },
           (error) => {
             log.debug(error);
-          });
+          }
+        );
       },
       // Set column title and data field
       columns: [
@@ -109,8 +109,8 @@ export class MasterComponent implements OnInit {
             }
           }
           if (result.crudType == '') {
-              // toaster for cancel
-              this.displayToaster('Confirmation', 'Form is cancel');
+            // toaster for cancel
+            this.displayToaster('Confirmation', 'Form is cancel');
           }
         }
       })
